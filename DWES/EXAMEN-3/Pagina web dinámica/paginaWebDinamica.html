@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title>Formulario de contacto</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <h1>Formulario de contacto</h1>
+        <form action="procesar.php" method="post" enctype="multipart/form-data">
+            <label for="nombre">Nombre:</label>
+            <input type="text" name="nombre" id="nombre" required>
+    
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required>
+    
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" name="telefono" id="telefono" required>
+    
+            <label for="asunto">Asunto:</label>
+            <input type="text" name="asunto" id="asunto" required>
+    
+            <label for="mensaje">Mensaje:</label>
+            <textarea name="mensaje" id="mensaje" rows="5" required></textarea>
+    
+            <label for="cv">Curriculum Vitae (PDF o Word):</label>
+            <input type="file" name="cv" id="cv" required>
+    
+            <input type="submit" value="Enviar">
+        </form>
+    </body>
+    </html>
