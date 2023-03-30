@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Lista de tareas</title>
+	<link rel="stylesheet" type="text/css" href="p1.css">
+</head>
+<body>
+	<h1>Lista de tareas</h1>
+	<form id="add-task-form">
+		<label for="task-input">Tarea:</label>
+		<input type="text" id="task-input" maxlength="100" required>
+		<button type="submit">Agregar tarea</button>
+	</form>
+	<ul id="task-list"></ul>
+	<script>
+		const MAX_TASKS = 10;
+		const taskForm = document.getElementById("add-task-form");
+		const taskInput = document.getElementById("task-input");
+		const taskList = document.getElementById("task-list");
+
+		taskForm.addEventListener("submit", function(event) {
+			event.preventDefault();
+			const taskText = taskInput.value.trim();
+			if (taskText !== "") {
+				if (taskList.children.length >= MAX_TASKS) {
+					alert("¡La lista ya tiene 10 elementos!");
+				} else {
+					addTaskToList(taskText);
+				}
+				taskInput.value = "";
+			}
+		});
+
+		function addTaskToList(taskText) {
+			const newTaskItem = document.createElement("li");
+			newTaskItem.textContent = taskText;
+			newTaskItem.innerHTML += '<button class="delete">Eliminar</button>';
+			taskList.appendChild(newTaskItem);
+			newTaskItem.querySelector("button.delete").addEventListener("click", function() {
+				taskList.removeChild(newTaskItem);
+			});
+		}
+	</script>
+</body>
+</html>

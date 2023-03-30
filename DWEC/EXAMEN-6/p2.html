@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Información del usuario</title>
+</head>
+<body>
+	<h1>Información del usuario</h1>
+	<ul>
+		<li><strong>Agente de usuario:</strong> <span id="user-agent"></span></li>
+		<li><strong>Sistema operativo:</strong> <span id="os"></span></li>
+		<li><strong>Navegador:</strong> <span id="browser"></span></li>
+		<li><strong>Tamaño de memoria:</strong> <span id="memory"></span></li>
+		<li><strong>Lenguaje predeterminado:</strong> <span id="language"></span></li>
+		<li><strong>Carga:</strong> <span id="online"></span></li>
+		<li><strong>Soporta PDF:</strong> <span id="pdf"></span></li>
+		<li><strong>Porcentaje de batería:</strong> <span id="battery"></span></li>
+		<li><strong>Cargando:</strong> <span id="loading"></span></li>
+	</ul>
+	<script>
+		const userAgent = navigator.userAgent;
+		const os = navigator.platform;
+		const browser = navigator.appName;
+		const memory = navigator.deviceMemory;
+		const language = navigator.language;
+		const online = navigator.onLine;
+		const pdfSupport = typeof navigator.mimeTypes['application/pdf'] !== 'undefined';
+		const battery = navigator.getBattery ? "desconocido" : "no compatible";
+		const loading = document.readyState !== "complete" ? "sí" : "no";
+		if (navigator.getBattery) {
+			navigator.getBattery().then(function(batteryInfo) {
+				document.getElementById("battery").textContent = Math.floor(batteryInfo.level * 100) + "%";
+			});
+		}
+		document.getElementById("user-agent").textContent = userAgent;
+		document.getElementById("os").textContent = os;
+		document.getElementById("browser").textContent = browser;
+		document.getElementById("memory").textContent = memory + " GB";
+		document.getElementById("language").textContent = language;
+		document.getElementById("online").textContent = online ? "sí" : "no";
+		document.getElementById("pdf").textContent = pdfSupport ? "sí" : "no";
+		document.getElementById("loading").textContent = loading;
+		if (navigator.getBattery) {
+			navigator.getBattery().then(function(batteryInfo) {
+				if (batteryInfo.level < 0.25) {
+					document.body.innerHTML = "<h1>Por debajo del 25%</h1>";
+				}
+			});
+		}
+	</script>
+</body>
+</html>
