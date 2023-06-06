@@ -1,0 +1,54 @@
+Descarga el archivo de video:
+
+Abre el enlace del archivo de video: sample_640x360.avi.
+Haz clic derecho en el enlace y selecciona "Guardar enlace como" para descargar el archivo en tu dispositivo.
+Duración del video y número de flujos de audio y video:
+
+Para obtener la duración del video y el número de flujos de audio y video, puedes utilizar reproductores de medios o herramientas de análisis de video como MediaInfo.
+Descarga e instala MediaInfo desde su sitio web oficial: https://mediaarea.net/.
+Abre MediaInfo y selecciona el archivo de video "sample_640x360.avi".
+MediaInfo mostrará información detallada sobre el video, incluida la duración y el número de flujos de audio y video.
+Codificar el video en formato WebM:
+
+Para codificar el video en formato WebM, puedes utilizar herramientas de conversión de video como FFmpeg.
+Descarga e instala FFmpeg desde su sitio web oficial: https://ffmpeg.org/.
+Abre una terminal o línea de comandos y navega hasta el directorio donde tienes instalado FFmpeg.
+Ejecuta el siguiente comando para codificar el video en formato WebM:
+
+ffmpeg -i sample_640x360.avi -c:v libvpx -c:a libvorbis sample_640x360.webm
+
+Después de ejecutar el comando, se generará un nuevo archivo llamado "sample_640x360.webm" en el mismo directorio.
+Extraer solo el audio del video:
+
+Para extraer solo el audio del video, también puedes utilizar FFmpeg.
+Ejecuta el siguiente comando para extraer el audio del video:
+
+ffmpeg -i sample_640x360.avi -vn -c:a copy sample_audio.wav
+
+Después de ejecutar el comando, se generará un nuevo archivo de audio llamado "sample_audio.wav" en el mismo directorio.
+Recortar la duración del video a la mitad:
+
+Para recortar la duración del video a la mitad, nuevamente puedes utilizar FFmpeg.
+Primero, obtén la duración total del video del paso anterior utilizando MediaInfo u otra herramienta similar.
+Ejecuta el siguiente comando para recortar la duración del video a la mitad:
+ffmpeg -i sample_640x360.avi -t [duración / 2] -c:v copy -c:a copy sample_half.avi
+Reemplaza "[duración / 2]" con la mitad de la duración del video en segundos.
+Después de ejecutar el comando, se generará un nuevo archivo de video llamado "sample_half.avi" en el mismo directorio.
+Cambiar la resolución de imagen del video:
+
+Para cambiar la resolución de imagen del video, nuevamente puedes utilizar FFmpeg.
+Ejecuta el siguiente comando para cambiar la resolución del video:
+
+ffmpeg -i sample_640x360.avi -vf "scale=1280:720" -c:v libx264 -preset medium -crf 23 -c:a copy sample_1280x720.avi
+
+Reemplaza "1280:720" con la resolución deseada para el video.
+Después de ejecutar el comando, se generará un nuevo archivo de video llamado "sample_1280x720.avi" en el mismo directorio.
+Extraer 8 fotogramas de muestra del video:
+
+Para extraer fotogramas de muestra del video, puedes utilizar FFmpeg.
+Ejecuta el siguiente comando para extraer 8 fotogramas de muestra:
+
+ffmpeg -i sample_640x360.avi -vf "select='eq(n\,0)+eq(n\,50)+eq(n\,100)+eq(n\,150)+eq(n\,200)+eq(n\,250)+eq(n\,300)+eq(n\,350)'" -vsync 0 -frame_pts true sample_frames%d.png
+
+Después de ejecutar el comando, se generarán ocho archivos de imagen PNG numerados como "sample_frames1.png", "sample_frames2.png", etc., en el mismo directorio.
+Recuerda que estos comandos utilizan herramientas de línea de comandos como FFmpeg para realizar las acciones especificadas en el archivo de video descargado. Asegúrate de tener FFmpeg instalado y ajusta los nombres de archivo y ubicaciones según corresponda en tu sistema.

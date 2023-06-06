@@ -1,0 +1,46 @@
+Descarga la imagen:
+
+Abre el enlace de la imagen: Enlace de la imagen.
+Haz clic derecho en la imagen y selecciona "Guardar imagen como" para descargarla en tu dispositivo.
+Instala ImageMagick:
+
+Descarga e instala ImageMagick desde su sitio web oficial: https://imagemagick.org/.
+Abre una terminal o línea de comandos y navega hasta el directorio donde tienes la imagen descargada.
+
+Guardar la imagen en formato WebP:
+
+Ejecuta el siguiente comando para convertir la imagen a formato WebP:
+lua
+Copy code
+magick Münster,_LBS_--_2021_--_9804.jpg Münster.webp
+Guardar la imagen en formato JPEG con el 25% de calidad:
+
+Ejecuta el siguiente comando para convertir la imagen a formato JPEG con una calidad del 25%:
+lua
+Copy code
+magick Münster,_LBS_--_2021_--_9804.jpg -quality 25 Münster_25.jpg
+Recortar la imagen:
+
+Ejecuta el siguiente comando para recortar la imagen, eliminando 500 píxeles de la parte superior y 500 píxeles de la parte derecha:
+lua
+Copy code
+magick Münster,_LBS_--_2021_--_9804.jpg -crop 500x500+500+0 cropped.jpg
+Rotar la imagen 45 grados a la derecha:
+
+Ejecuta el siguiente comando para rotar la imagen 45 grados a la derecha:
+lua
+Copy code
+magick Münster,_LBS_--_2021_--_9804.jpg -rotate 45 rotated.jpg
+Añadir una marca de agua:
+
+Ejecuta el siguiente comando para añadir una marca de agua "Foto Examen" en la esquina superior izquierda:
+arduino
+Copy code
+magick Münster,_LBS_--_2021_--_9804.jpg -pointsize 40 -draw "text 10,50 'Foto Examen'" watermarked.jpg
+Aplicar el filtro "implode" a la imagen:
+
+Ejecuta el siguiente comando para aplicar el filtro "implode" a la imagen:
+lua
+Copy code
+magick Münster,_LBS_--_2021_--_9804.jpg -implode 1.5 imploded.jpg
+Estos comandos utilizan ImageMagick para realizar las acciones especificadas en la imagen descargada. Asegúrate de ajustar los nombres de archivo y las ubicaciones según corresponda en tu sistema. Recuerda que debes

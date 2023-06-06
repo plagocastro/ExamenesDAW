@@ -1,0 +1,48 @@
+Descarga el archivo de audio:
+
+Abre el enlace del archivo de audio: sample4.mp3.
+Haz clic derecho en el enlace y selecciona "Guardar enlace como" para descargar el archivo en tu dispositivo.
+Duración del archivo de audio:
+
+Para obtener la duración del archivo de audio, puedes utilizar reproductores de medios o software de edición de audio como Audacity.
+Abre el archivo de audio en Audacity.
+En Audacity, verás la duración del archivo de audio en la parte inferior de la ventana principal.
+Codificación utilizada:
+
+La codificación utilizada en el archivo de audio MP3 se puede verificar mediante herramientas como MediaInfo.
+Descarga e instala MediaInfo desde su sitio web oficial: https://mediaarea.net/.
+Abre MediaInfo y selecciona el archivo de audio "sample4.mp3".
+MediaInfo mostrará información detallada sobre el archivo de audio, incluida la codificación utilizada.
+Bitrate del archivo de audio:
+
+El bitrate del archivo de audio MP3 se puede verificar utilizando herramientas como MediaInfo.
+Abre MediaInfo y selecciona el archivo de audio "sample4.mp3".
+MediaInfo mostrará información detallada sobre el archivo de audio, incluido el bitrate.
+Convertir el archivo a formato Opus:
+
+Para convertir el archivo de audio a formato Opus, puedes utilizar herramientas de conversión de audio como FFmpeg.
+Descarga e instala FFmpeg desde su sitio web oficial: https://ffmpeg.org/.
+Abre una terminal o línea de comandos y navega hasta el directorio donde tienes instalado FFmpeg.
+Ejecuta el siguiente comando para convertir el archivo de audio a formato Opus:
+
+ffmpeg -i sample4.mp3 -c:a libopus sample4.opus
+
+Después de ejecutar el comando, se generará un nuevo archivo llamado "sample4.opus" en el mismo directorio.
+Recortar la duración a la mitad:
+
+Para recortar la duración del archivo de audio a la mitad, también puedes utilizar FFmpeg.
+Ejecuta el siguiente comando para recortar la duración a la mitad:
+
+ffmpeg -i sample4.mp3 -ss 0 -t [duración / 2] sample4_half.mp3
+
+Reemplaza "[duración / 2]" con la mitad de la duración del archivo de audio en segundos.
+Después de ejecutar el comando, se generará un nuevo archivo llamado "sample4_half.mp3" en el mismo directorio.
+Dividir el archivo en 4 partes iguales:
+
+Para dividir el archivo de audio en partes iguales, nuevamente puedes utilizar FFmpeg.
+Ejecuta el siguiente comando para dividir el archivo en 4 partes iguales:
+
+ffmpeg -i sample4.mp3 -f segment -segment_time [duración / 
+
+Reemplaza "[duración / 4]" con la duración total del archivo de audio dividida por 4 en segundos.
+Después de ejecutar el comando, se generarán cuatro archivos llamados "sample4_part1.mp3", "sample4_part2.mp3", "sample4_part3.mp3" y "sample4_part4.mp3" en el mismo directorio.
