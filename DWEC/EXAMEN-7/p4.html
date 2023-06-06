@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OAuth with Google</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <h1>OAuth with Google</h1>
+  
+  <div id="profile-info" style="display: none;">
+    <h2>Información del perfil:</h2>
+    <img id="profile-image" src="" alt="Foto de perfil">
+    <p id="profile-name"></p>
+    <button id="logout-btn">Cerrar sesión</button>
+  </div>
+  
+  <div id="login-btn-container">
+    <div id="g_id_onload"
+         data-client_id="YOUR_CLIENT_ID"
+         data-callback="handleCredentialResponse">
+    </div>
+    <div class="g_id_signin" data-type="standard"></div>
+  </div>
+  
+  <script>
+    function handleCredentialResponse(response) {
+      var credential = response.credential;
+      
+      if (credential) {
+        var profile = credential.profile;
+        var profileInfoDiv = document.getElementById('profile-info');
+        var profileImage = document.getElementById('profile-image');
+        var profileName = document.getElementById('profile-name');
+        var logoutBtn = document.getElementById('logout-btn');
+
+        profileImage.src = profile.picture;
+        profileName.textContent = 'Nombre: ' + profile.name;
+        
+        profileInfoDiv.style.display = 'block';
+        
+        logoutBtn.addEventListener('click', function() {
+          handleLogout();
+        });
+      }
+    }
+    
+    function handleLogout() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function() {
+        var profileInfoDiv = document.getElementById('profile-info');
+        profileInfoDiv.style.display = 'none';
+      });
+    }
+  </script>
+</body>
+</html>

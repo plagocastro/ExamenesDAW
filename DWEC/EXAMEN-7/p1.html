@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chuck Norris Jokes</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>Chuck Norris Jokes</h1>
+  <div id="random-joke">
+    <h2>Chiste aleatorio:</h2>
+    <p id="joke"></p>
+    <p id="last-updated"></p>
+    <p id="category"></p>
+  </div>
+  <div id="categories">
+    <h2>Categorías disponibles:</h2>
+    <ul id="category-list"></ul>
+  </div>
+  <div id="search">
+    <h2>Buscar chiste:</h2>
+    <form id="search-form">
+      <input type="text" id="search-text" placeholder="Escribe tu búsqueda">
+      <input type="submit" value="Buscar">
+    </form>
+    <p id="search-result"></p>
+  </div>
+
+  <script>
+
+    $.ajax({
+      url: 'https://api.chucknorris.io/jokes/random',
+      method: 'GET',
+      success: function(response) {
+        $('#joke').text(response.value);
+        $('#last-updated').text('Última actualización: ' + response.updated_at);
+        $('#category').text('Categoría: ' + response.categories[0]);
+      }
+    });
+
+    $.ajax({
+      url: 'https://api.chucknorris.io/jokes/categories',
+      method: 'GET',
+      success: function(response) {
+        response.forEach(function(category) {
+          var listItem = $('<li><a href="#" class="category-link">' + category + '</a></li>');
+          $('#category-list').append(listItem);
+        });
+      }
+    });
+
+    $('#search-form').submit(function(event) {
+      event.preventDefault();
+      var searchText = $('#search-text').val();
+      $.ajax({
+        url: 'https://api.chucknorris.io/jokes/search?query=' + searchText,
+        method: 'GET',
+        success: function(response) {
+          if (response.total > 0) {
+            var joke = response.result[Math.floor(Math.random() * response.total)];
+            $('#search-result').text('Resultado de la búsqueda: ' + joke.value);
+          } else {
+            $('#search-result').text('No se encontraron chistes con esa búsqueda.');
+          }
+        }
+      });
+    });
+
+    $(document).on('click', '.category-link', function() {
+      var category = $(this).text();
+      $.ajax({
+        url: 'https://api.chucknorris.io/jokes/random?category=' + category,
+        method: 'GET',
+        success: function(response) {
+          $('#search-result').text('Chiste de la categoría "' + category + '": ' + response.value);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

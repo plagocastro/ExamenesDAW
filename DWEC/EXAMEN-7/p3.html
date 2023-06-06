@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Unsplash Image Search</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>Unsplash Image Search</h1>
+  
+  <div>
+    <label for="search">Buscar imágenes:</label>
+    <input type="text" id="search" placeholder="Escribe tu búsqueda">
+    
+    <label for="num-images">Número de imágenes:</label>
+    <select id="num-images">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+    </select>
+    
+    <button id="search-btn">Buscar</button>
+  </div>
+  
+  <div id="thumbnails"></div>
+  
+  <div id="image-details" style="display: none;">
+    <h2>Detalles de la imagen</h2>
+    <img id="selected-image" src="" alt="Imagen seleccionada">
+    <p id="image-description"></p>
+    
+    <h3>Enlaces a la imagen en diferentes resoluciones:</h3>
+    <ul>
+      <li><a id="low-resolution" href="" target="_blank">Baja resolución</a></li>
+      <li><a id="regular-resolution" href="" target="_blank">Resolución regular</a></li>
+      <li><a id="high-resolution" href="" target="_blank">Alta resolución</a></li>
+    </ul>
+  </div>
+  
+  <script>
+    $('#search-btn').click(function() {
+      var query = $('#search').val();
+      var numImages = $('#num-images').val();
+      
+      if (query === '') {
+        alert('Ingresa un criterio de búsqueda.');
+        return;
+      }
+      
+      var unsplashUrl = 'https://api.unsplash.com/search/photos?query=' + query + '&per_page=' + numImages + '&client_id=YOUR_ACCESS_KEY';
+      
+      $.ajax({
+        url: unsplashUrl,
+        method: 'GET',
+        success: function(response) {
+          displayThumbnails(response.results);
+        },
+        error: function() {
+          alert('Ocurrió un error al obtener las imágenes de Unsplash.');
+        }
+      });
+    });
+    
+    function displayThumbnails(images) {
+      var thumbnailsDiv = $('#thumbnails');
+      thumbnailsDiv.empty();
+      
+      images.forEach(function(image) {
+        var thumbnail = $('<img class="thumbnail" src="' + image.urls.thumb + '" alt="' + image.alt_description + '">');
+        thumbnail.click(function() {
+          displayImageDetails(image);
+        });
+        thumbnailsDiv.append(thumbnail);
+      });
+    }
+    
+    function displayImageDetails(image) {
+      $('#selected-image').attr('src', image.urls.regular);
+      $('#image-description').text('Descripción: ' + image.description);
+      
+      var lowResLink = image.urls.thumb;
+      var regularResLink = image.urls.regular;
+      var highResLink = image.urls.full;
+      
+      $('#low-resolution').attr('href', lowResLink);
+      $('#regular-resolution').attr('href', regularResLink);
+      $('#high-resolution').attr('href', highResLink);
+      
+      $('#image-details').show();
+    }
+  </script>
+</body>
+</html>

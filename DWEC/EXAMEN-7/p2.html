@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chuck Norris Jokes & OpenWeather</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>Chuck Norris Jokes & OpenWeather</h1>
+  
+  <div id="chuck-norris">
+    <h2>Chiste de Chuck Norris:</h2>
+    <p id="joke"></p>
+    <p id="last-updated"></p>
+    <p id="category"></p>
+  </div>
+  
+  <div id="weather">
+    <h2>Información meteorológica:</h2>
+    <p id="location"></p>
+    <p id="temperature"></p>
+    <p id="description"></p>
+  </div>
+  
+  <script>
+    $.ajax({
+      url: 'https://api.chucknorris.io/jokes/random',
+      method: 'GET',
+      success: function(response) {
+        $('#joke').text(response.value);
+        $('#last-updated').text('Última actualización: ' + response.updated_at);
+        $('#category').text('Categoría: ' + response.categories[0]);
+      }
+    });
+    
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var lat = position.coords.latitude;
+        var lon = position.coords.longitude;
+        
+        var weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=YOUR_API_KEY';
+        
+        $.ajax({
+          url: weatherUrl,
+          method: 'GET',
+          success: function(response) {
+            $('#location').text('Ubicación: ' + response.name + ', ' + response.sys.country);
+            $('#temperature').text('Temperatura: ' + (response.main.temp - 273.15).toFixed(2) + '°C');
+            $('#description').text('Descripción: ' + response.weather[0].description);
+          }
+        });
+      });
+    } else {
+      $('#weather').text('No se pudo obtener la ubicación para mostrar la información meteorológica.');
+    }
+  </script>
+</body>
+</html>
