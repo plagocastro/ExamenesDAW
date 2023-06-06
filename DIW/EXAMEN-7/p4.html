@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lienzo interactivo</title>
+    <style>
+        #canvas {
+            width: 400px;
+            height: 400px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lienzo interactivo</h1>
+
+    <input type="color" id="colorPicker">
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        const colorPicker = document.getElementById('colorPicker');
+        let isPainting = false;
+
+        canvas.addEventListener('mousedown', startPainting);
+        canvas.addEventListener('mousemove', paint);
+        canvas.addEventListener('mouseup', stopPainting);
+        canvas.addEventListener('mouseleave', stopPainting);
+
+        function startPainting() {
+            isPainting = true;
+        }
+
+        function paint(event) {
+            if (!isPainting) return;
+
+            const x = event.offsetX;
+            const y = event.offsetY;
+            const color = colorPicker.value;
+
+            context.beginPath();
+            context.strokeStyle = color;
+            context.lineWidth = 2;
+            context.lineCap = 'round';
+            context.moveTo(x, y);
+            context.lineTo(x, y);
+            context.stroke();
+        }
+
+        function stopPainting() {
+            isPainting = false;
+        }
+    </script>
+
+</body>
+</html>
