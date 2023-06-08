@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Página web con imágenes</title>
+  <style>
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    @media (min-width: 768px) {
+      img {
+        max-width: 800px;
+      }
+    }
+    @media (min-width: 1200px) {
+      img {
+        max-width: 1200px;
+      }
+    }
+    .general {
+      border: 1px solid black;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mis imágenes del día</h1>
+  <p>A continuación se muestran tres imágenes basadas en la imagen del día de Wikipedia (Picture of the Day).</p>
+
+  <h2>Imagen 1</h2>
+  <div class="general">
+    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/M%C3%BCnster%2C_LBS_--_2021_--_9804.jpg?width=800" alt="Imagen 800x600" width="800" height="600">
+    <p>Imagen 800x600</p>
+  </div>
+
+  <h2>Imagen 2</h2>
+  <p>Revisa el formato de la imagen:</p>
+  <picture>
+    <source srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Potd-logo.svg/200px-Potd-logo.svg.png" type="image/webp">
+    <source srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Potd-logo.svg/200px-Potd-logo.svg.jpg" type="image/jpeg">
+    <source srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Potd-logo.svg/200px-Potd-logo.svg.web" type="image/png">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Potd-logo.svg/200px-Potd-logo.svg.png" alt="Revisa el formato de la imagen">
+  </picture>
+
+  <h2>Imagen 3</h2>
+  <img srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Cataratas_Victoria%2C_Zambia-Zimbabue%2C_2018-07-27%2C_DD_04.jpg/300px-Cataratas_Victoria%2C_Zambia-Zimbabue%2C_2018-07-27%2C_DD_04.jpg" alt="Imagen 3">
+</body>
+</html>
